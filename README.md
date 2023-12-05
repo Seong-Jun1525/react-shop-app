@@ -9,6 +9,7 @@ react-icons
 sass
 @reduxjs/toolkit
 react-loading-skeleton
+react-hook-form
 ```
 ### 폴더 구조
 **src**
