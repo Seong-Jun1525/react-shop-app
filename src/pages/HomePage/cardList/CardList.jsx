@@ -6,11 +6,12 @@ import { fetchProducts } from "../../../store/products/products.slice"
 const CardList = () => {
     const dispatch = useAppDispatch()
     const { products } = useAppSelector(state => state.productsSlice)
-
-    useEffect(() => {
-        dispatch(fetchProducts(styles))
-    }, [])
+    const category = useAppSelector(state => state.categoriesSlice)
     
+    useEffect(() => {
+        dispatch(fetchProducts(category?.toLowerCase()))
+    }, [category])
+
     return (
         <ul className={styles.card_list}>
             {products.map(product => <CardItem key={product.id} item={product} />)}

@@ -1,4 +1,5 @@
 import CardList from "./cardList/CardList"
+import CountProducts from "./count-products/CountProducts"
 import FiltersCategory from "./cardList/filter-category/FiltersCategory"
 
 const HomePage = () => {
@@ -7,6 +8,7 @@ const HomePage = () => {
       <div className="container">
         <h1>Products</h1>
         <FiltersCategory />
+        <CountProducts />
         <CardList />
       </div>
     </div>
