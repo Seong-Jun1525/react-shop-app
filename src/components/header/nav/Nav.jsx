@@ -2,7 +2,7 @@ import {Link} from "react-router-dom"
 import {FiShoppingCart} from "react-icons/fi"
 import {FiUser} from "react-icons/fi"
 import {FiLogIn} from "react-icons/fi"
-import {GoSignOut} from "react-icons/go"
+import { BiLogOut } from "react-icons/bi";
 import styles from "./Nav.module.scss"
 
 const Nav = () => {
@@ -20,7 +20,7 @@ const Nav = () => {
                 </div>
             </li>
             <li>
-                <GoSignOut className={styles.nav_sign_out} title="로그아웃" />
+                <BiLogOut className={styles.nav_sign_out} title="로그아웃" />
                 <Link to={"/login"}><FiLogIn title="로그인" /></Link>
             </li>
         </ul>

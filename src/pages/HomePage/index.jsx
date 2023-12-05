@@ -1,6 +1,13 @@
+import FiltersCategory from "./cardList/filter-category/FiltersCategory"
+
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <div className="page">
+      <div className="container">
+        <h1>Products</h1>
+        <FiltersCategory />
+      </div>
+    </div>
   )
 }
 
