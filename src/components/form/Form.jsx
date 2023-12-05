@@ -1,28 +1,30 @@
 import { useForm } from "react-hook-form"
 import styles from "./Form.module.scss"
 
-const Form = ({title}) => {
+const Form = ({title, getDataForm, firebaseError}) => {
   const { register, handleSubmit, formState: {errors}, reset } = useForm({
     mode: 'onChange'
   })
 
   const onSubmit = ({email, password}) => {
-    console.log(email, password)
+    // console.log(email, password)
+    getDataForm(email, password)
+    reset()
   }
 
   const userEmail = {
-    required: "필수 필드입니다.",
-    pattern: {
-      value: /^([A-Z][a-z][0-9](\.|_){0,1})+[A-Z][a-z][0-9]\.@([A-Z][a-z][0-9])+((\.){0,1}[A-Z][a-z][0-9]){2}\.[a-z]{2,3}$/gm,
-      message: "입력하신 이메일 주소가 올바르지 않습니다."
-    }
+    required: "필수 필드입니다."
+    // pattern: {
+    //   value: /^([A-Z][a-z][0-9](\.|_){0,1})+[A-Z][a-z][0-9]\.@([A-Z][a-z][0-9])+((\.){0,1}[A-Z][a-z][0-9]){2}\.[a-z]{2,3}$/gm,
+    //   message: "입력하신 이메일 주소가 올바르지 않습니다."
+    // }
   }
 
   const userPassword = {
     required: "필수 필드입니다.",
     minLength: {
-      value: 4,
-      message: "최소 4자입니다."
+      value: 6  ,
+      message: "최소 6자입니다."
     },
     maxLength: {
       value: 13,
@@ -55,7 +57,10 @@ const Form = ({title}) => {
       </div>
 
       <button type="submit">{title}</button>
-      <span className={styles.form_error}></span>
+      {firebaseError && (
+          <span className={styles.form_error}>{firebaseError}</span>
+        )
+      }
     </form>
   )
 }
