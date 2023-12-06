@@ -1,8 +1,16 @@
-import React from 'react'
+import { Navigate } from "react-router-dom"
+import { useAuth } from "../../hooks/useAuth"
 
 const OrderPage = () => {
+  const {isAuth} = useAuth()
+  if(!isAuth) return <Navigate to="/" />
   return (
-    <div>OrderPage</div>
+    <div className="page">
+      <div className="container">
+        <h1>주문내역</h1>
+        
+      </div>
+    </div>
   )
 }
 
