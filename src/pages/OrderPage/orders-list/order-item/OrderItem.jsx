@@ -12,7 +12,7 @@ const OrderItem = ({order}) => {
             <h3>{order.title}</h3>
         </div>
         <div className={styles.order_price}>
-            <h4>가격: </h4><span>$ {order.price} X {order.quantity} {" "}</span>
+            <h4>가격: </h4><span>$ {order.price} X {order.quantity}{" "}</span>
         </div>
         <div className={styles.order_total}>
             <h4>합계: </h4><span>$ {order.total}</span>
