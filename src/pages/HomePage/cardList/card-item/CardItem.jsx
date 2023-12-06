@@ -2,15 +2,18 @@ import { Link } from "react-router-dom"
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux"
 import styles from "./CardItem.module.scss"
 import { addToCart } from "../../../../store/cart/cart.slice"
+import PropTypes from 'prop-types';
 
-const CardItem = ({item}) => {
-    const {products} = useAppSelector(state => state.cartSlice)
-    const productMatching = products.some((product) => product.id === item.id) // some(): 배열 안의 어떤 요소라도 주어진 판별 함수를 적어도 하나라도 통과하는지 테스트함.
+const CardItem = ({ item }) => {
+    const { products } = useAppSelector(state => state.cartSlice)
+    const productMatching = products.some((product) => product.id === item.id)
+    // some(): 배열 안의 어떤 요소라도 주어진 판별 함수를 적어도 하나라도 통과하는지 테스트함.
     const dispatch = useAppDispatch()
     
     const addItemToCart = () => {
         dispatch(addToCart(item))
     }
+
     return (
         <li className={styles.card_item}>
             <Link to={`/product/${item.id}`}>
@@ -25,6 +28,10 @@ const CardItem = ({item}) => {
             </div>
         </li>
     )
+}
+
+CardItem.propTypes = {
+    item: PropTypes.node
 }
 
 export default CardItem

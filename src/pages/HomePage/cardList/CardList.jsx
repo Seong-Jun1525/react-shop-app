@@ -5,6 +5,7 @@ import styles from "./CardList.module.scss"
 import { fetchProducts } from "../../../store/products/products.slice"
 import CardSkeleton from "../card-skeleton/CardSkeleton"
 const CardList = () => {
+    
     const dispatch = useAppDispatch()
     const { products, isLoading } = useAppSelector(state => state.productsSlice)
     const category = useAppSelector(state => state.categoriesSlice)

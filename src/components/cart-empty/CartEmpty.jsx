@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import styles from "./CartEmpty.module.scss"
+import PropTypes from 'prop-types';
+
 const CartEmpty = ({title}) => {
   return (
     <div className={styles.cart_empty}>
@@ -9,6 +11,10 @@ const CartEmpty = ({title}) => {
       <Link to="/">계속 쇼핑하기</Link>
     </div>
   )
+}
+
+CartEmpty.propTypes = {
+  title: PropTypes.node
 }
 
 export default CartEmpty

@@ -12,10 +12,10 @@ export const fetchProducts = createAsyncThunk(
             } else {
                 response = await axios.get("https://fakestoreapi.com/products")
             }
-            console.log("@@@@@ ", response)
+            // console.log("@@@@@ ", response)
             return response.data // payload
         } catch (error) {
-            thunkAPI.rejectedWithValue("Error loading products")
+            thunkAPI.rejectWithValue("Error loading products")
         }
     }
 )
@@ -29,9 +29,7 @@ const initialState = {
 export const productsSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {
-
-    },
+    reducers: {},
 
     // reducer를 추가하면 Promise의 진행 상태에 따라서 리듀서를 실행할 수 있습니다.
     extraReducers: (builder) => {

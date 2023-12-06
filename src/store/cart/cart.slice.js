@@ -1,9 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const postOrder = createAsyncThunk(
+    "cart/postOrder",
+    async (order, thunkAPI) => {
+        try {
+            await axios.post("https://65700b4c09586eff66409cd9.mockapi.io/orders", order)
+
+            thunkAPI.dispatch(sendOrder())
+        } catch (error) {
+            return thunkAPI.rejectWithValue("Error sending order")
+        }
+    }
+)
 
 const initialState = {
-    products: localStorage.getItem("cartProducts") ? JSON.parse(localStorage.getItem("cartProducts")) : [],
+    products: localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products") || "") : [],
     totalPrice: 0,
-    userId: localStorage.getItem("userId") ? JSON.parse(localStorage.getItem("userId")) : ""
+    userId: localStorage.getItem("userId") ? JSON.parse(localStorage.getItem("userId") || "") : ""
 }
 
 export const cartSlice = createSlice({
@@ -31,13 +45,13 @@ export const cartSlice = createSlice({
             localStorage.setItem("cartProducts", JSON.stringify(state.products))
         },
         incrementProduct: (state, action) => {
-            state.products = state.products.map((item) => {
+            state.products = state.products.map((item) =>
                 item.id === action.payload ? {
                     ...item,
                     quantity: item.quantity + 1,
                     total: item.price * (item.quantity + 1)
                 } : item
-            })
+            )
             localStorage.setItem("cartProducts", JSON.stringify(state.products))
         },
         decrementProduct: (state, action) => {
@@ -56,6 +70,10 @@ export const cartSlice = createSlice({
                 0
             )
             return state
+        },
+        sendOrder: (state) => {
+            state.products = []
+            localStorage.setItem("cartProducts", JSON.stringify(state.products))
         }
     }
 })
@@ -67,7 +85,8 @@ export const {
     decrementProduct,
     getTotalPrice,
     setUserId,
-    removeUserId
+    removeUserId,
+    sendOrder
 } = cartSlice.actions
 
 export default cartSlice.reducer
