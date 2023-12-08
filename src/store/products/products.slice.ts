@@ -1,26 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { IProduct } from "./products.type";
 
 // createAsyncThunk: redux toolkit에서 비동기 요청을 할 때 사용
 export const fetchProducts = createAsyncThunk(
     "products/fetchProducts",
-    async (category, thunkAPI) => {
+    async (category: string, thunkAPI) => {
         try {
             let response
             if(category) {
-                response = await axios.get(`https://fakestoreapi.com/products/category/${category}`)
+                response = await axios.get<IProduct[]>(`https://fakestoreapi.com/products/category/${category}`)
             } else {
-                response = await axios.get("https://fakestoreapi.com/products")
+                response = await axios.get<IProduct[]>("https://fakestoreapi.com/products")
             }
             // console.log("@@@@@ ", response)
             return response.data // payload
         } catch (error) {
-            thunkAPI.rejectWithValue("Error loading products")
+            return thunkAPI.rejectWithValue("Error loading products")
         }
     }
 )
 
-const initialState = {
+type ProductsType = {
+    products: IProduct[]
+    isLoading: boolean
+    error: string
+}
+
+const initialState: ProductsType = {
     products: [],
     isLoading: false,
     error: ""
@@ -43,7 +50,7 @@ export const productsSlice = createSlice({
             })
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.isLoading = false
-                state.error = action.payload // Error loading products
+                state.error = action.payload as string // Error loading products
             })
     }
 })

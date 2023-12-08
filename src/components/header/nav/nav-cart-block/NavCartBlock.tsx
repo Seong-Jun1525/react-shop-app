@@ -6,12 +6,12 @@ import NavCartList from "./nav-cart-list/NavCartList"
 import { Link } from "react-router-dom"
 
 const NavCartBlock = () => {
-    const {totalPrice, product} = useAppSelector((state) => state.cartSlice)
+    const {totalPrice, products} = useAppSelector((state) => state.cartSlice)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-      dispatch(getTotalPrice(product))
-    }, [])
+      dispatch(getTotalPrice()) // payload로 받아오는게 없기 때문에 비워둔다
+    }, [products])
     
 
     return (

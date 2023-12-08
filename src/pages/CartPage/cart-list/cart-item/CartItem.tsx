@@ -3,10 +3,15 @@ import {deleteFromCart, incrementProduct, decrementProduct} from "../../../../st
 import { Link } from "react-router-dom"
 import {AiOutlineDelete} from "react-icons/ai"
 import { useAppDispatch } from "../../../../hooks/redux"
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { IProduct } from "../../../../store/products/products.type"
+import { FC } from "react"
 
+type CartItemProps = {
+    item: IProduct
+}
 
-const CartItem = ({ item }) => {
+const CartItem: FC<CartItemProps> = ({ item }) => {
     const dispatch = useAppDispatch()
     const deleteProduct = () => {
         dispatch(deleteFromCart(item.id))
@@ -50,8 +55,8 @@ const CartItem = ({ item }) => {
     )
 }
 
-CartItem.propTypes = {
-    item: PropTypes.node
-}
+// CartItem.propTypes = {
+//     item: PropTypes.node
+// }
 
 export default CartItem

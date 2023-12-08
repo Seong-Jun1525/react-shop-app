@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom"
 import styles from "./CartEmpty.module.scss"
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { FC } from "react";
 
-const CartEmpty = ({title}) => {
+type CartEmptyProps = {
+  title: string
+}
+
+const CartEmpty: FC<CartEmptyProps> = ({title}) => {
   return (
     <div className={styles.cart_empty}>
       <img src="img/empty-cart.png" alt="cart empty" />
@@ -13,8 +18,8 @@ const CartEmpty = ({title}) => {
   )
 }
 
-CartEmpty.propTypes = {
-  title: PropTypes.node
-}
+// CartEmpty.propTypes = {
+//   title: PropTypes.node
+// }
 
 export default CartEmpty

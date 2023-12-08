@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { IProduct } from "../products/products.type";
 
 export const postOrder = createAsyncThunk(
     "cart/postOrder",
-    async (order, thunkAPI) => {
+    async (order: CartState, thunkAPI) => {
         try {
             await axios.post("https://65700b4c09586eff66409cd9.mockapi.io/orders", order)
 
@@ -14,7 +15,13 @@ export const postOrder = createAsyncThunk(
     }
 )
 
-const initialState = {
+type CartState = {
+    products: IProduct[]
+    totalPrice: number
+    userId: string
+}
+
+const initialState: CartState = {
     products: localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products") || "") : [],
     totalPrice: 0,
     userId: localStorage.getItem("userId") ? JSON.parse(localStorage.getItem("userId") || "") : ""
@@ -24,7 +31,7 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        setUserId: (state, action) => {
+        setUserId: (state, action: PayloadAction<string>) => {
             state.userId = action.payload
             localStorage.setItem("userId", JSON.stringify(state.userId))
         },
@@ -32,7 +39,7 @@ export const cartSlice = createSlice({
             state.userId = ""
             localStorage.setItem("userId", JSON.stringify(state.userId))
         },
-        addToCart: (state, action) => {
+        addToCart: (state, action: PayloadAction<IProduct>) => {
             state.products.push({
                 ...action.payload,
                 quantity: 1,
@@ -40,11 +47,11 @@ export const cartSlice = createSlice({
             })
             localStorage.setItem("cartProducts", JSON.stringify(state.products))
         },
-        deleteFromCart: (state, action) => {
+        deleteFromCart: (state, action: PayloadAction<number>) => {
             state.products = state.products.filter((item) => item.id !== action.payload)
             localStorage.setItem("cartProducts", JSON.stringify(state.products))
         },
-        incrementProduct: (state, action) => {
+        incrementProduct: (state, action: PayloadAction<number>) => {
             state.products = state.products.map((item) =>
                 item.id === action.payload ? {
                     ...item,
@@ -54,7 +61,7 @@ export const cartSlice = createSlice({
             )
             localStorage.setItem("cartProducts", JSON.stringify(state.products))
         },
-        decrementProduct: (state, action) => {
+        decrementProduct: (state, action: PayloadAction<number>) => {
             state.products = state.products.map((item) => {
                 item.id === action.payload ? {
                     ...item,

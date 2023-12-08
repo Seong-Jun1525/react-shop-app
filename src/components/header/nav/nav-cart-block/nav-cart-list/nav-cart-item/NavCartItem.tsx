@@ -1,11 +1,17 @@
 import styles from "./NavCartItem.module.scss"
 import { Link } from "react-router-dom"
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useAppDispatch } from "../../../../../../hooks/redux";
 import { deleteFromCart } from "../../../../../../store/cart/cart.slice";
 import { AiOutlineDelete } from "react-icons/ai";
+import { IProduct } from "../../../../../../store/products/products.type";
+import { FC } from "react";
 
-const NavCartItem = ({item}) => {
+type NavCartItemProps = {
+    item: IProduct
+}
+
+const NavCartItem: FC<NavCartItemProps> = ({item}) => {
     const dispatch = useAppDispatch()
     
     const deleteProduct = () => {
@@ -27,8 +33,8 @@ const NavCartItem = ({item}) => {
     )
 }
 
-NavCartItem.propTypes = {
-    item: PropTypes.node
-}
+// NavCartItem.propTypes = {
+//     item: PropTypes.node
+// }
 
 export default NavCartItem

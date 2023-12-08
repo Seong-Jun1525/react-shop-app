@@ -12,21 +12,18 @@ const DetailPage = () => {
 
   const dispatch = useAppDispatch()
 
-  const {product, isLoading} = useAppSelector((state) => state.productSlice)
+  const {product, isLoading} = useAppSelector((state) => state.productSlice) // state는 xxSlice
   const {products} = useAppSelector((state) => state.cartSlice)
   const productMatching = products.some((product) => product.id === product.id)
 
   useEffect(() => {
     dispatch(fetchProduct(productId))
-  
-    
   }, [productId])
 
   const addItemToCart = () => {
     dispatch(addToCart(product))
   }
 
-  
   return (
     <div className="page">
       {isLoading ? (
